@@ -39,7 +39,7 @@ router.get("/products/:pid", async (req, res) => {
     const product = await ProductSchema.findById(req.params.pid).lean();
     if (!product) return res.status(404).send("Producto no encontrado");
 
-    const cartId = "687c1c973dd0babf99319bc5"; // mismo ID que usás en el form
+    const cartId = "687c1c973dd0babf99319bc5"; 
 
     res.render("productDetail", { product, cartId });
   } catch (error) {
@@ -59,7 +59,7 @@ router.get("/cart/:cid", async (req, res) => {
 
     res.render("cart", {
       cart,
-      cartId: cart._id.toString(), // 👈 necesario para los botones
+      cartId: cart._id.toString(), 
     });
   } catch (error) {
     res.status(500).send("Error al cargar el carrito");

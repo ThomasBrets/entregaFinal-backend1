@@ -125,7 +125,7 @@ router.post("/:cid/products/:pid", async (req, res) => {
 
     await cart.save();
 
-    // ✅ Redirigir a la vista del carrito después de agregar
+    
     res.redirect(`/cart/${cid}`);
   } catch (error) {
     res.status(500).send("Error al agregar producto al carrito");
