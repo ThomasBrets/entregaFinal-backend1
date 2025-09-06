@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import ProductSchema from "../models/product.js";
+import ProductSchema from "../daos/models/product.js";
 
 // Mostrar todos los productos
 router.get("/", async (req, res) => {
@@ -47,7 +47,7 @@ router.get("/products/:pid", async (req, res) => {
   }
 });
 
-import CartSchema from "../models/cart.js";
+import CartSchema from "../daos/models/cart.js";
 
 router.get("/cart/:cid", async (req, res) => {
   try {

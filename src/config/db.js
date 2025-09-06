@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
+import config from "./config.js";
 
-// .env
-import dotenv from "dotenv";
-import { log } from "node:console";
-dotenv.config();
-
-const connectioString = process.env.MONGODB_URI;
+const connectioString = config.MONGO_URL;
 
 mongoose
   .connect(connectioString)

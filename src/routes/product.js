@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 const router = Router();
-import ProductSchema from "../models/product.js";
+import ProductSchema from "../daos/models/product.js";
 
 router.get("/", async (req, res) => {
   try {
