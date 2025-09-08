@@ -19,7 +19,7 @@ class UserController {
       const { email, password } = req.body;
       const user = await this.repository.login(email, password);
       const token = this.repository.generateToken(user)
-      res.cookie("accessToken", token, { httpOnly: true })
+      res.cookie("accessToken", token, { httpOnly: true }).json({message: "Login success"})
     } catch (error) {
         next(error)
     }

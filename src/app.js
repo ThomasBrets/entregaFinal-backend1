@@ -6,6 +6,7 @@ import views from "./routes/views.js"
 import config from "./config/config.js"
 import cookieParser from "cookie-parser";
 import passport from 'passport'
+import "./middlewares/passport/passport-jwt-cookies.js"
 
 
 import { engine } from "express-handlebars";

@@ -10,13 +10,13 @@ import product from "./product.js";
 router.use("/carts", cart);
 router.use("/products", product);
 
-router.use("/register", userController.register);
-router.use("/login", userController.login);
-router.use(
+router.post("/register", userController.register);
+router.post("/login", userController.login);
+router.get(
   "/current",
   passportCall("jwt", { session: false }),
   verifyToken,
-  (req, res) => res.json({user:req.user})
+  (req, res) => res.json({ user: req.user })
 );
 
 export default router;
