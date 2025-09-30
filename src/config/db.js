@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-import config from "./config.js";
 
-const connectioString = config.MONGO_URL;
+const connectioString = process.env.MONGODB_URL;
 
 mongoose
   .connect(connectioString)

@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import ProductSchema from "../daos/models/product.js";
+import {ProductModel} from "../daos/models/product.js";
 
 // Mostrar todos los productos
 router.get("/", async (req, res) => {

@@ -1,6 +1,5 @@
 import passport from "passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import config from "../../config/config.js";
 
 const cookieExtractor = (req) => {
     return req.cookies.accessToken
@@ -8,7 +7,7 @@ const cookieExtractor = (req) => {
 
 const strategyConfig = {
     jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-    secretOrKey: config.JWT_SECRET
+    secretOrKey: process.env.JWT_SECRET
 }
 
 const verifyToken = async (jwt_payload, done) => {

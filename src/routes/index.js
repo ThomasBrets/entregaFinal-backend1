@@ -1,22 +1,15 @@
 import express, { Router } from "express";
 const router = Router();
-import { userController } from "../controllers/userController.js";
 import { passportCall } from "../middlewares/passport/passport-call.js";
-import { verifyToken } from "../middlewares/verify-token.js";
 
-import cart from "./cart.js";
 import product from "./product.js";
+import user from "./user.js";
+import admin from "./admin.js";
+import auth from "./auth.js";
 
-router.use("/carts", cart);
+router.use("/auth", auth);
 router.use("/products", product);
-
-router.post("/register", userController.register);
-router.post("/login", userController.login);
-router.get(
-  "/current",
-  passportCall("jwt", { session: false }),
-  verifyToken,
-  (req, res) => res.json({ user: req.user })
-);
+router.use("/users", passportCall("jwt", { session: false }), user);
+router.use("/admin", admin);
 
 export default router;

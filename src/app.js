@@ -3,7 +3,6 @@ const app = express();
 import routes from "./routes/index.js";
 import db from"./config/db.js";
 import views from "./routes/views.js"
-import config from "./config/config.js"
 import cookieParser from "cookie-parser";
 import passport from 'passport'
 import "./middlewares/passport/passport-jwt-cookies.js"
@@ -42,8 +41,8 @@ app.get("/", (req, res) => {
 
 app.use(errorHandler)
 
-const PORT = config.PORT
 
+const PORT = process.env.PORT
 
 app.listen(PORT, () => {
   console.log(`Servidos levantado en puerto ${PORT}`);

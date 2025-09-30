@@ -1,8 +1,8 @@
 import { userRepository } from "../repositories/userRepository.js";
 
 class UserController {
-  constructor(repository) {
-    this.repository = repository;
+  constructor(services) {
+    this.services = services;
   }
 
   register = async (req, res, next) => {

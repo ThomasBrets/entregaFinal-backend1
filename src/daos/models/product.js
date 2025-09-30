@@ -1,6 +1,5 @@
-import mongoose from "mongoose"
+import { Schema, model } from "mongoose";
 
-const Schema = mongoose.Schema
 
 const ProductSchema = new Schema({
  title: {
@@ -39,4 +38,4 @@ const ProductSchema = new Schema({
 
 
 
-export default mongoose.model("Product", ProductSchema)
+export const ProductModel = model("Product", ProductSchema);

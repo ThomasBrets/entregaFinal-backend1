@@ -26,10 +26,7 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Cart",
   },
-  role: {
-    type: String,
-    default: "user",
-  },
+  role: { type: String, enum: ["user", "admin"], default: "user" },
 });
 
-export const UserModel = model("User", UserSchema)
+export const UserModel = model("User", UserSchema);
