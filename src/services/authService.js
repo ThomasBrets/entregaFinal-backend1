@@ -50,7 +50,7 @@ class AuthService {
         role: user.role,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "2h" }
     );
     return token
   };

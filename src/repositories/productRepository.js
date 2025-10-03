@@ -5,7 +5,7 @@ class ProductRepository {
     this.dao = dao;
   }
   getAll = async (limit) => {
-    return await this.dao.getAll(limit);
+    return await this.dao.getAllProducts(limit);
   };
 
   getById = async (id) => {

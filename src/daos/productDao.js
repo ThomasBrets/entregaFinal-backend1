@@ -1,4 +1,4 @@
-import {ProductModel} from "./models/product.js";
+import { ProductModel } from "./models/product.js";
 import MongoDao from "./mongoDao.js";
 
 class ProductDao extends MongoDao {
@@ -6,17 +6,21 @@ class ProductDao extends MongoDao {
     super(model);
   }
 
+  getAllProducts = async (limit) => {
+    return await this.model.find().limit(limit);
+  };
+
   getById = async (cid) => {
     return await this.model.findById(cid).populate("products.product");
   };
 
-  create = async () =>{
+  create = async () => {
     return await this.model.create({ products: [] });
-  }
+  };
 
-  save = async (cart)=> {
+  save = async (cart) => {
     return await cart.save();
-  }
+  };
 }
 
 export const productDao = new ProductDao(ProductModel);
