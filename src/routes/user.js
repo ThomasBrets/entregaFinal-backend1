@@ -9,6 +9,8 @@ router.get("/current", (req, res) => {
     const safeUser = new UserDto(req.user)
     res.json(safeUser)
 });
+
+//! Cart
 router.use("/carts", cart);
 
 export default router;

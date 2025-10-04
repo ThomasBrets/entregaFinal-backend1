@@ -1,13 +1,17 @@
-import express, { Router } from "express";
-import { productController } from "../controllers/productController.js";
-
+import { Router } from "express";
 const router = Router();
+import { productController } from "../controllers/productController.js";
+import { verifyRole } from "../middlewares/verifyRole.js";
+
+import admin from "./admin.js";
+
 
 router.get("/", productController.getAll);
 router.get("/:pid", productController.getById);
-router.post("/", productController.create);
-router.put("/:pid", productController.update);
-router.delete("/:pid", productController.delete);
+
+//! Admin
+router.use("/admin",verifyRole("admin"), admin);
+
 
 export default router;
 
