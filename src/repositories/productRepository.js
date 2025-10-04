@@ -1,4 +1,5 @@
 import { productDao } from "../daos/productDao.js";
+import CustomError from "../utils/custom-error.js";
 
 class ProductRepository {
   constructor(dao) {
@@ -15,17 +16,17 @@ class ProductRepository {
   };
 
   create = async (data) => {
-    return await this.dao.createProduct(data);
+    return await this.dao.create(data);
   };
 
   update = async (id, data) => {
-    const product = await this.dao.updateProduct(id, data);
+    const product = await this.dao.update(id, data);
     if (!product) throw new CustomError("Producto no encontrado", 404);
     return product;
   };
 
   delete = async (id) => {
-    const product = await this.dao.deleteProduct(id);
+    const product = await this.dao.delete(id);
     if (!product) throw new CustomError("Producto no encontrado", 404);
     return { message: "Producto eliminado con éxito" };
   };

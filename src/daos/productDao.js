@@ -11,11 +11,7 @@ class ProductDao extends MongoDao {
   };
 
   getById = async (cid) => {
-    return await this.model.findById(cid).populate("products.product");
-  };
-
-  create = async () => {
-    return await this.model.create({ products: [] });
+    return await this.model.findById(cid)
   };
 
   save = async (cart) => {
