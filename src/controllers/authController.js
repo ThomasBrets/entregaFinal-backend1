@@ -1,4 +1,4 @@
-import  {authService}  from "../services/authService.js";
+import { authService } from "../services/authService.js";
 
 class AuthController {
   constructor(services) {
@@ -23,9 +23,22 @@ class AuthController {
         message: "login success",
       });
     } catch (error) {
-        next(error)
+      next(error);
+    }
+  };
+
+  logout = async (req, res, next) => {
+    try {
+      res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
+      res.status(200).json({ message: "Sesión cerrada correctamente" });
+    } catch (error) {
+      next(error);
     }
   };
 }
 
-export const authController = new AuthController(authService)
+export const authController = new AuthController(authService);
