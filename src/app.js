@@ -6,6 +6,7 @@ import views from "./routes/views.js"
 import cookieParser from "cookie-parser";
 import passport from 'passport'
 import "./middlewares/passport/passport-jwt-cookies.js"
+import cors from "cors"
 
 
 import { engine } from "express-handlebars";
@@ -22,15 +23,19 @@ app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views")); 
 
 
-
-
-
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use(passport.initialize());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use("/api", routes)
 app.use("/",views)   
