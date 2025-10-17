@@ -1,5 +1,6 @@
 import CustomError from "../utils/custom-error.js";
 import {authRepository} from "../repositories/authRepository.js";
+import {cartRepository} from "../repositories/cartRepository.js"
 import { createHash, isValid } from "../utils/user-utils.js";
 import jwt from "jsonwebtoken";
 
@@ -15,9 +16,13 @@ class AuthService {
       const existUser = await this.repository.getUserByEmail(email);
       if (existUser) throw new CustomError("Usuario ya existe", 400);
 
+      //Creo el carrito
+      const cart = await cartRepository.createCart()
+
       const resp = await this.repository.create({
         ...body,
         password: createHash(password),
+        cart: cart._id,
       });
       if (!resp) throw new CustomError("Error al registrar usario", 400);
 

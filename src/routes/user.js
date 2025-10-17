@@ -3,12 +3,26 @@ const router = Router();
 
 import cart from "./cart.js";
 import UserDto from "../dtos/userDto.js";
+import product from "./product.js";
+import { authRepository } from "../repositories/authRepository.js";
 
+router.get("/current", async (req, res) => {
+  try {
+    const user = await authRepository.getUserByEmail(req.user.email);
+    if (!user)
+      return res.status(404).json({ message: "usuario no encontrado" });
 
-router.get("/current", (req, res) => {
-    const safeUser = new UserDto(req.user)
-    res.json(safeUser)
+    const safeUser = new UserDto(user);
+    res.json(safeUser);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "error al obtener el usuario actual", error });
+  }
 });
+
+//!Products
+router.use("/products", product);
 
 //! Cart
 router.use("/carts", cart);

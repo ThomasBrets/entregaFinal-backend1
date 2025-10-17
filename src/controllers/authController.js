@@ -8,7 +8,7 @@ class AuthController {
   register = async (req, res, next) => {
     try {
       const resp = await this.services.register(req.body);
-      res.json(resp);
+      res.status(201).json(resp);
     } catch (error) {
       next(error);
     }
