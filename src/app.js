@@ -7,6 +7,8 @@ import passport from "passport";
 import "./middlewares/passport/passport-jwt-cookies.js";
 import cors from "cors";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import "dotenv/config";
+
 
 // Middlewares
 app.use(express.json());
@@ -18,7 +20,7 @@ app.use(passport.initialize());
 // Configuración de CORS
 app.use(
   cors({
-    origin: "http://localhost:5173", // tu frontend local
+    origin: "https://pipe-front.vercel.app", 
     credentials: true,
   })
 );
