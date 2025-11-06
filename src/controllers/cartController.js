@@ -62,8 +62,7 @@ class CartController {
     }
   };
 
-
-    replaceProducts = async (req, res, next) => {
+  replaceProducts = async (req, res, next) => {
     try {
       const cart = await this.service.replaceProducts(
         req.params.cid,
@@ -84,7 +83,18 @@ class CartController {
     }
   };
 
+  purchaseCart = async (req, res, next) => {
+    try {
+      const user = req.user;
 
+      if (!user) res.status(401).json({ message: "usuario no autenticado" });
+
+      const purchase = await this.service.purchaseCart(req.params.cid, user);
+      res.json({ message: "Compra exitosa", purchase });
+    } catch (error) {
+      next(error)
+    }
+  };
 }
 
 export const cartController = new CartController(cartService);

@@ -19,9 +19,15 @@ class AuthController {
       const { email, password } = req.body;
       const user = await this.services.login(email, password);
       const token = this.services.generateToken(user);
-      res.cookie("accessToken", token, { httpOnly: true }).json({
-        message: "login success",
-      });
+      res
+        .cookie("accessToken", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production" ? true : false,
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        })
+        .json({
+          message: "login success",
+        });
     } catch (error) {
       next(error);
     }
@@ -31,8 +37,8 @@ class AuthController {
     try {
       res.clearCookie("accessToken", {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: process.env.NODE_ENV === "production" ? true : false,
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       });
       res.status(200).json({ message: "Sesión cerrada correctamente" });
     } catch (error) {

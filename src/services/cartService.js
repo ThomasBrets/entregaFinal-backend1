@@ -1,5 +1,6 @@
 import { cartRepository } from "../repositories/cartRepository.js";
 import CustomError from "../utils/custom-error.js";
+import { sendPurchaseEmailService } from "./email-services.js";
 
 class CartService {
   constructor(repository) {
@@ -66,6 +67,36 @@ class CartService {
     cart.products = [];
     await this.repository.saveCart(cart);
     return cart;
+  };
+
+  purchaseCart = async (cid, user) => {
+    const cart = await this.getCart(cid);
+
+    if (!cart.products || cart.products.length === 0) {
+      throw new CustomError("El carrito esta vacío", 400);
+    }
+    let total = 0;
+    //Resumen de cada product
+    const items = cart.products.map((item) => {
+      const price = Number(item.product.price || 0);
+      const qty = Number(item.quantity || 0);
+      const subtotal = price * qty;
+      total += subtotal;
+      return { title: item.product.title, price, quantity: qty, subtotal };
+    });
+
+    // 🧾 Enviar email con resumen
+    await sendPurchaseEmailService(user, items, total);
+
+    // 🧹 Vaciar carrito después de la compra
+    cart.products = [];
+    await this.repository.saveCart(cart);
+
+    return {
+      message:
+        "Compra realizada con éxito. Se envió un correo de confirmación.",
+      total,
+    };
   };
 }
 
